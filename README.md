@@ -1,6 +1,24 @@
 ISO8601 date/time library
 =========================
 
+Status
+------
+In production use on openEHR.org.
+
+Void-safe Status
+----------------
+Full compliance
+
+Original Author
+---------------
+Thomas Beale <wolandscat@gmail.com>
+
+Contributors
+------------
+Colin Paul Adams
+
+Description
+-----------
 [ISO8601](http://en.wikipedia.org/wiki/ISO_8601) is a standard for the string representation of dates, times and durations, and includes a timezone concept as well as partial dates and times.
 
 This library provides a way of converting between strings, ISO8601_XXX instances and instances of the Eiffel 'time' library, i.e. DATE, TIME, etc. The reason to use the ISO8601 representation is to a) provide parsing from String form, and b) to give access to the parts of dates, times and durations. If arithmetic operations are needed, convert first to the Eiffel DATE, TIME etc types.
