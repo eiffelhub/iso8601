@@ -124,6 +124,8 @@ feature -- Validity
 			--	-hhmm
 		do
 			Result := iso8601_parser.valid_iso8601_time (str)
+		ensure
+			cached_if_true: Result implies attached iso8601_parser.cached_iso8601_time			
 		end
 
 	valid_iso8601_date (str: STRING): BOOLEAN
@@ -135,18 +137,25 @@ feature -- Validity
 			--	YYYY-MM-DD
 		do
 			Result := iso8601_parser.valid_iso8601_date(str)
+		ensure
+			cached_if_true: Result implies attached iso8601_parser.cached_iso8601_date
 		end
 
 	valid_iso8601_date_time (str: STRING): BOOLEAN
 			-- True if string in form "YYYY-MM-DDThh:mm:ss[,sss]"
 		do
 			Result := iso8601_parser.valid_iso8601_date_time (str)
+		ensure
+			cached_if_true: Result implies (attached iso8601_parser.cached_iso8601_date_time as l_date_time and then
+				attached l_date_time.time_part)
 		end
 
 	valid_iso8601_duration (str: STRING): BOOLEAN
 			-- True if string in form "PnDTnHnMnS"
 		do
 			Result := iso8601_parser.valid_iso8601_duration(str)
+		ensure
+			cached_if_true: Result implies attached iso8601_parser.cached_iso8601_duration
 		end
 
 	valid_year (y: INTEGER): BOOLEAN

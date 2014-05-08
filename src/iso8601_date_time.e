@@ -50,8 +50,12 @@ feature -- Initialisation
 		do
 			make_date_time (create {DATE_TIME}.make_now)
 			if valid_iso8601_date_time(str) then
-				date_part := iso8601_parser.cached_iso8601_date_time.date_part.deep_twin
-				time_part := iso8601_parser.cached_iso8601_date_time.time_part.deep_twin
+				check attached iso8601_parser.cached_iso8601_date_time as l_date_time and then
+					attached l_date_time.time_part as l_time_part then
+						-- postcondition "cached_if_true" of `valid_iso8601_date_time'
+					date_part := l_date_time.date_part.deep_twin
+					time_part := l_time_part.deep_twin
+				end
 			end
 		end
 
@@ -106,7 +110,7 @@ feature -- Access
 	second: INTEGER
 		do
 			if attached time_part as tp then
-				Result := tp.minute
+				Result := tp.second
 			end
 		end
 
@@ -189,13 +193,23 @@ feature -- Conversion
 	to_seconds: DOUBLE
 			-- date/time as a number of days since origin point of 1600-01-01
 		do
-			Result := date_part.to_days * seconds_in_day + time_part.to_seconds
+			Result := date_part.to_days * seconds_in_day
+			if attached time_part as l_time_part then
+				Result := Result + l_time_part.to_seconds
+			end
 		end
 
 	to_date_time: DATE_TIME
 			-- convert to DATE_TIME object
+		local
+			l_time_part_2: like time_part
 		do
-			create Result.make_by_date_time (date_part.to_date, time_part.to_time)
+			if attached time_part as l_time_part then
+				create Result.make_by_date_time (date_part.to_date, l_time_part.to_time)
+			else
+				create l_time_part_2.make_h (0, False)
+				create Result.make_by_date_time (date_part.to_date, l_time_part_2.to_time)
+			end
 		end
 
 feature -- Output
@@ -216,7 +230,7 @@ feature -- Output
 			Result := as_string
 		end
 
-feature {ISO8601_DATE_TIME} -- Implementation
+feature {ISO8601_DATE_TIME, ISO8601_PARSER, ISO8601_ROUTINES} -- Implementation
 
 	date_part: ISO8601_DATE
 		attribute

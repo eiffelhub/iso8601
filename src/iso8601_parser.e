@@ -297,6 +297,9 @@ feature -- Status Report
 					end
 				end
 			end
+		ensure
+			cached_if_true: Result implies (attached cached_iso8601_date_time as l_date_time and then
+				attached l_date_time.time_part)
 		end
 
 	valid_iso8601_duration (str: STRING): BOOLEAN
@@ -444,6 +447,8 @@ feature -- Status Report
 					end
 				end
 			end
+		ensure
+			cached_if_true: Result implies attached cached_iso8601_duration
 		end
 
 feature {NONE} -- Implementation
@@ -488,6 +493,7 @@ feature {NONE} -- Implementation
 			tz_obj: detachable ISO8601_TIMEZONE
 			tz_sign: INTEGER
 			tz_ok: BOOLEAN
+			l_cached_iso8601_time: like cached_iso8601_time
 		do
 			-- check timezone part if any
 			if attached a_tz_str as tz_str then
@@ -534,18 +540,18 @@ feature {NONE} -- Implementation
 															Result := True
 														end
 														if Result then
-															create
-															cached_iso8601_time.make_hmsf (h, m, s, fs, is_extended)
+															create l_cached_iso8601_time.make_hmsf (h, m, s, fs, is_extended)
+															cached_iso8601_time := l_cached_iso8601_time
 															if attached tz_obj as att_tz_obj then
-																cached_iso8601_time.set_timezone (att_tz_obj)
+																l_cached_iso8601_time.set_timezone (att_tz_obj)
 															end
 														end
 													end
 												else
-													create
-													cached_iso8601_time.make_hms(h, m, s, is_extended)
+													create l_cached_iso8601_time.make_hms(h, m, s, is_extended)
+													cached_iso8601_time := l_cached_iso8601_time
 													if attached tz_obj as att_tz_obj then
-														cached_iso8601_time.set_timezone (att_tz_obj)
+														l_cached_iso8601_time.set_timezone (att_tz_obj)
 													end
 												end
 											end
@@ -558,25 +564,27 @@ feature {NONE} -- Implementation
 										Result := True
 									end
 									if Result then
-										create cached_iso8601_time.make_hm(h, m, is_extended)
+										create l_cached_iso8601_time.make_hm (h, m, is_extended)
+										cached_iso8601_time := l_cached_iso8601_time
 										if attached tz_obj as att_tz_obj then
-											cached_iso8601_time.set_timezone (att_tz_obj)
+											l_cached_iso8601_time.set_timezone (att_tz_obj)
 										end
 									end
 								end
 							end
 						else -- hours only
 							Result := True
-							create cached_iso8601_time.make_h (h, is_extended)
+							create l_cached_iso8601_time.make_h (h, is_extended)
+							cached_iso8601_time := l_cached_iso8601_time
 							if attached tz_obj as att_tz_obj then
-								cached_iso8601_time.set_timezone (att_tz_obj)
+								l_cached_iso8601_time.set_timezone (att_tz_obj)
 							end
 						end
 					end
 				end
 			end
 		ensure
-			Result implies attached cached_iso8601_time
+			cached_if_true: Result implies attached cached_iso8601_time
 		end
 
 feature {ISO8601_ROUTINES} -- Implementation

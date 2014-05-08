@@ -54,15 +54,18 @@ feature {NONE} -- Initialisation
 			-- Make from a valid ISO duration string.
 		do
 			if valid_iso8601_duration (str) then
-				days := iso8601_parser.cached_iso8601_duration.days
-				months := iso8601_parser.cached_iso8601_duration.months
-				weeks := iso8601_parser.cached_iso8601_duration.weeks
-				years := iso8601_parser.cached_iso8601_duration.years
-				seconds := iso8601_parser.cached_iso8601_duration.seconds
-				minutes := iso8601_parser.cached_iso8601_duration.minutes
-				hours := iso8601_parser.cached_iso8601_duration.hours
-				fractional_seconds := iso8601_parser.cached_iso8601_duration.fractional_seconds
-				has_time := iso8601_parser.cached_iso8601_duration.has_time
+				check attached iso8601_parser.cached_iso8601_duration as l_duration then
+						-- postcondition "cached_if_true" of `valid_iso8601_duration'
+					days := l_duration.days
+					months := l_duration.months
+					weeks := l_duration.weeks
+					years := l_duration.years
+					seconds := l_duration.seconds
+					minutes := l_duration.minutes
+					hours := l_duration.hours
+					fractional_seconds := l_duration.fractional_seconds
+					has_time := l_duration.has_time
+				end
 			end
 
 			if is_zero then
