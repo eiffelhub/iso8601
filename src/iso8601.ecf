@@ -16,7 +16,7 @@ uuid="CB74ED8C-F619-42B0-8147-A8C591AA61EE" library_target="iso8601">
     
     <library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
     <library name="time" location="$ISE_LIBRARY/library/time/time-safe.ecf" readonly="true"/>
-    <library name="gobo_kernel" location="$GOBO/library/kernel/library.ecf" readonly="true"/>
+	<library name="gobo_kernel" location="$ISE_LIBRARY\library\gobo\gobo_kernel-safe.ecf"/>
     <cluster name="iso8601" location=".\" recursive="false"/>
   </target>
 </system>
