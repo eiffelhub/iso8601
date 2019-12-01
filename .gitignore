@@ -1,0 +1,8 @@
+EIFGEN/
+EIFGENs/
+*.epr
+*.wb
+*.pyc
+.scons*
+
+*.log
