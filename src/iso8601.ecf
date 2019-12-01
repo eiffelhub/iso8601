@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-12-0"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-12-0 
-http://www.eiffel.com/developers/xml/configuration-1-12-0.xsd" name="iso8601" 
-uuid="CB74ED8C-F619-42B0-8147-A8C591AA61EE" library_target="iso8601">
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-12-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-12-0 http://www.eiffel.com/developers/xml/configuration-1-12-0.xsd" name="iso8601" uuid="CB74ED8C-F619-42B0-8147-A8C591AA61EE" library_target="iso8601">
   <target name="iso8601">
     <root all_classes="true"/>
     <file_rule>
@@ -14,9 +10,9 @@ uuid="CB74ED8C-F619-42B0-8147-A8C591AA61EE" library_target="iso8601">
     </file_rule>
     <option warning="true" void_safety="all" full_class_checking="true" is_attached_by_default="true"/>
     
-    <library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
-    <library name="time" location="$ISE_LIBRARY/library/time/time-safe.ecf" readonly="true"/>
-	<library name="gobo_kernel" location="$ISE_LIBRARY\library\gobo\gobo_kernel-safe.ecf"/>
+    <library name="base" location="$ISE_LIBRARY\library\base\base.ecf"/>
+    <library name="time" location="$ISE_LIBRARY/library/time/time.ecf" readonly="true"/>
+	<library name="gobo_kernel" location="$ISE_LIBRARY\library\gobo\gobo_kernel.ecf"/>
     <cluster name="iso8601" location=".\" recursive="false"/>
   </target>
 </system>
