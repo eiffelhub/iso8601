@@ -178,6 +178,12 @@ feature -- Modification
 			value := as_string
 		end
 
+	clear_fractional_second
+			-- remove fractional seconds
+		do
+			has_fractional_second := False
+		end
+
 feature -- Comparison
 
 	is_less alias "<" (other: like Current): BOOLEAN

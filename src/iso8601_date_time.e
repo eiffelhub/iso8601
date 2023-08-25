@@ -188,6 +188,16 @@ feature -- Comparison
 			Result := to_seconds < other.to_seconds
 		end
 
+feature -- Modification
+
+	clear_fractional_second
+			-- clear fractional seconds in the time part, if present
+		do
+			if attached time_part as tp then
+				tp.clear_fractional_second
+			end
+		end
+
 feature -- Conversion
 
 	to_seconds: DOUBLE
